@@ -16,7 +16,7 @@ async def get_message(message: Message):
         if tiktok.is_empty:
             continue
         if isinstance(tiktok, Video):
-            await message.send_video(tiktok.video, caption=tiktok.caption)
+            await message.reply_video(tiktok.video, caption=tiktok.caption)
         if isinstance(tiktok, Photo):
             for photos in tiktok.get_chunks(size=10):
                 first_with_caption = [
@@ -26,4 +26,4 @@ async def get_message(message: Message):
                     InputMediaPhoto(photo) for photo in photos[1:]
                 ]
                 media = MediaGroup(medias=first_with_caption + others_without_caption)
-                await message.send_media_group(media)
+                await message.reply_media_group(media)
